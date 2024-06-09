@@ -529,6 +529,7 @@ func (p *Process) monitorProgramIsRunning(endTime time.Time, monitorExited *int3
 	// if the program does not exit
 	if atomic.LoadInt32(programExited) == 0 && p.state == Starting {
 		log.WithFields(log.Fields{"program": p.GetName()}).Info("success to start program")
+		p.inStart = false
 		p.changeStateTo(Running)
 	}
 }
@@ -628,6 +629,7 @@ func (p *Process) run(finishCb func()) {
 		if startSecs <= 0 {
 			atomic.StoreInt32(&monitorExited, 1)
 			log.WithFields(log.Fields{"program": p.GetName()}).Info("success to start program")
+			p.inStart = false
 			p.changeStateTo(Running)
 			go finishCbWrapper()
 		} else {
