@@ -1,4 +1,4 @@
-module github.com/ochinchina/supervisord/xmlrpcclient
+module github.com/xxnuo/supervisord/xmlrpcclient
 
 go 1.16
 

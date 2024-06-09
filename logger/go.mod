@@ -1,3 +1,3 @@
-module github.com/ochinchina/supervisord/logger
+module github.com/xxnuo/supervisord/logger
 
 go 1.16

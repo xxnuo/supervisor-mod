@@ -13,9 +13,9 @@ import (
 
 	"github.com/jessevdk/go-flags"
 	"github.com/ochinchina/go-ini"
-	"github.com/ochinchina/supervisord/config"
-	"github.com/ochinchina/supervisord/logger"
 	log "github.com/sirupsen/logrus"
+	"github.com/xxnuo/supervisord/config"
+	"github.com/xxnuo/supervisord/logger"
 )
 
 // Options the command line options

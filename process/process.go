@@ -17,12 +17,12 @@ import (
 
 	"github.com/mitchellh/go-ps"
 	"github.com/ochinchina/filechangemonitor"
-	"github.com/ochinchina/supervisord/config"
-	"github.com/ochinchina/supervisord/events"
-	"github.com/ochinchina/supervisord/logger"
-	"github.com/ochinchina/supervisord/signals"
 	"github.com/robfig/cron/v3"
 	log "github.com/sirupsen/logrus"
+	"github.com/xxnuo/supervisord/config"
+	"github.com/xxnuo/supervisord/events"
+	"github.com/xxnuo/supervisord/logger"
+	"github.com/xxnuo/supervisord/signals"
 )
 
 // State the state of process
@@ -226,7 +226,7 @@ func (p *Process) GetDescription() string {
 		}
 		return fmt.Sprintf("pid %d, uptime %d:%02d:%02d", p.cmd.Process.Pid, hours%24, minutes%60, seconds%60)
 	} else if p.state != Stopped {
-                if p.stopTime.Unix() > 0 {
+		if p.stopTime.Unix() > 0 {
 			return p.stopTime.String()
 		}
 	}

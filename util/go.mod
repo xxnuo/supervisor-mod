@@ -1,3 +1,3 @@
-module github.com/ochinchina/supervisord/util
+module github.com/xxnuo/supervisord/util
 
 go 1.16

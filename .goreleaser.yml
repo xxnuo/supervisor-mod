@@ -24,6 +24,7 @@ builds:
       - windows
     goarch:
       - amd64
+      - "386"
       - arm64
       - arm
     goarm:
@@ -92,8 +93,8 @@ archives:
 
 release:
   github:
-    owner: ochinchina
-    name: supervisord
+    owner: xxnuo
+    name: supervisord-mod
   draft: false
   prerelease: auto
   name_template: "{{.ProjectName}}-v{{.Version}}"
