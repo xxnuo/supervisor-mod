@@ -140,7 +140,8 @@ func (p *Process) addToCron() {
 
 // Start process
 // Args:
-//  wait - true, wait the program started or failed
+//
+//	wait - true, wait the program started or failed
 func (p *Process) Start(wait bool) {
 	log.WithFields(log.Fields{"program": p.GetName()}).Info("try to start program")
 	p.lock.Lock()
@@ -161,8 +162,8 @@ func (p *Process) Start(wait bool) {
 	}
 
 	go func() {
-
 		for {
+			// we'll do retry start if it sets.
 			p.run(func() {
 				if wait {
 					runCond.L.Lock()
@@ -175,7 +176,7 @@ func (p *Process) Start(wait bool) {
 				time.Sleep(5 * time.Second)
 			}
 			if p.stopByUser {
-				log.WithFields(log.Fields{"program": p.GetName()}).Info("Stopped by user, don't start it again")
+				log.WithFields(log.Fields{"program": p.GetName()}).Info("program stopped by user, don't start it again")
 				break
 			}
 			if !p.isAutoRestart() {
@@ -392,7 +393,6 @@ func (p *Process) getExitCodes() []int {
 }
 
 // check if the process is running or not
-//
 func (p *Process) isRunning() bool {
 	if p.cmd != nil && p.cmd.Process != nil {
 		if runtime.GOOS == "windows" {
@@ -496,6 +496,14 @@ func (p *Process) waitForExit(startSecs int64) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 	p.stopTime = time.Now()
+	// FIXME: we didn't set eventlistener logger
+	// since it's stdout/stderr has been specifically managed.
+	if p.StdoutLog != nil {
+		p.StdoutLog.Close()
+	}
+	if p.StderrLog != nil {
+		p.StderrLog.Close()
+	}
 }
 
 // fail to start the program
@@ -506,7 +514,6 @@ func (p *Process) failToStartProgram(reason string, finishCb func()) {
 }
 
 // monitor if the program is in running before endTime
-//
 func (p *Process) monitorProgramIsRunning(endTime time.Time, monitorExited *int32, programExited *int32) {
 	// if time is not expired
 	for time.Now().Before(endTime) && atomic.LoadInt32(programExited) == 0 {
@@ -532,8 +539,8 @@ func (p *Process) run(finishCb func()) {
 		log.WithFields(log.Fields{"program": p.GetName()}).Info("Don't start program because it is running")
 		finishCb()
 		return
-
 	}
+
 	p.startTime = time.Now()
 	atomic.StoreInt32(p.retryTimes, 0)
 	startSecs := p.getStartSeconds()
@@ -544,7 +551,8 @@ func (p *Process) run(finishCb func()) {
 	finishCbWrapper := func() {
 		once.Do(finishCb)
 	}
-	// process is not expired and not stoped by user
+
+	//process is not expired and not stoped by user
 	for !p.stopByUser {
 		if restartPause > 0 && atomic.LoadInt32(p.retryTimes) != 0 {
 			// pause
@@ -618,7 +626,7 @@ func (p *Process) run(finishCb func()) {
 				finishCbWrapper()
 			}()
 		}
-		log.WithFields(log.Fields{"program": p.GetName()}).Debug("wait program exit")
+		log.WithFields(log.Fields{"program": p.GetName()}).Debug("check program is starting and wait if it exit")
 		p.lock.Unlock()
 
 		procExitC := make(chan struct{})
@@ -648,10 +656,17 @@ func (p *Process) run(finishCb func()) {
 
 		p.lock.Lock()
 
-		// if the program still in running after startSecs
-		if p.state == Running {
-			p.changeStateTo(Exited)
-			log.WithFields(log.Fields{"program": p.GetName()}).Info("program exited")
+		// we break the restartRetry loop if:
+		// 1. process still in running after startSecs (although it's exited right now)
+		// 2. it's stopping by user (we unlocked before waitForExit, so the flag stopByUser will have a chance to change).
+		if p.state == Running || p.state == Stopping {
+			if !p.stopByUser {
+				p.changeStateTo(Exited)
+				log.WithFields(log.Fields{"program": p.GetName()}).Info("program exited")
+			} else {
+				p.changeStateTo(Stopped)
+				log.WithFields(log.Fields{"program": p.GetName()}).Info("program stopped by user")
+			}
 			break
 		} else {
 			p.changeStateTo(Backoff)
@@ -701,9 +716,9 @@ func (p *Process) changeStateTo(procState State) {
 // Signal sends signal to the process
 //
 // Args:
-//   sig - the signal to the process
-//   sigChildren - if true, sends the same signal to the process and its children
 //
+//	sig - the signal to the process
+//	sigChildren - if true, sends the same signal to the process and its children
 func (p *Process) Signal(sig os.Signal, sigChildren bool) error {
 	p.lock.RLock()
 	defer p.lock.RUnlock()
@@ -728,9 +743,9 @@ func (p *Process) sendSignals(sigs []string, sigChildren bool) {
 // send signal to the process
 //
 // Args:
-//    sig - the signal to be sent
-//    sigChildren - if true, the signal also will be sent to children processes too
 //
+//	sig - the signal to be sent
+//	sigChildren - if true, the signal also will be sent to children processes too
 func (p *Process) sendSignal(sig os.Signal, sigChildren bool) error {
 	if p.cmd != nil && p.cmd.Process != nil {
 		log.WithFields(log.Fields{"program": p.GetName(), "signal": sig}).Info("Send signal to program")
@@ -944,8 +959,9 @@ func (p *Process) Stop(wait bool) {
 		log.WithFields(log.Fields{"program": p.GetName()}).Info("program is not running")
 		return
 	}
-	log.WithFields(log.Fields{"program": p.GetName()}).Info("stop the program")
-	sigs := strings.Fields(p.config.GetString("stopsignal", "SIGTERM"))
+	log.WithFields(log.Fields{"program": p.GetName()}).Info("stopping the program")
+	p.changeStateTo(Stopping)
+	sigs := strings.Fields(p.config.GetString("stopsignal", "TERM"))
 	waitsecs := time.Duration(p.config.GetInt("stopwaitsecs", 10)) * time.Second
 	killwaitsecs := time.Duration(p.config.GetInt("killwaitsecs", 2)) * time.Second
 	stopasgroup := p.config.GetBool("stopasgroup", false)
