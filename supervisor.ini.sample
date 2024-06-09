@@ -6,8 +6,8 @@ port=127.0.0.1:9001
 [supervisorctl]
 serverurl=http://127.0.0.1:9001
 
-[program:hello]
-command = 
+; [program:hello]
+; command = 
 
 ; [program:ddc]
 ; directory = /export/home/maguozhi/unrealddc
