@@ -1,3 +1,3 @@
-module github.com/xxnuo/supervisord/logger
+module github.com/xxnuo/supervisor-mod/logger
 
 go 1.16

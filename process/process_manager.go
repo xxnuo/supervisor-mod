@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/xxnuo/supervisord/config"
+	"github.com/xxnuo/supervisor-mod/config"
 )
 
 // Manager manage all the process in the supervisor

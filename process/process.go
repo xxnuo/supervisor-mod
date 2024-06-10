@@ -19,10 +19,10 @@ import (
 	"github.com/ochinchina/filechangemonitor"
 	"github.com/robfig/cron/v3"
 	log "github.com/sirupsen/logrus"
-	"github.com/xxnuo/supervisord/config"
-	"github.com/xxnuo/supervisord/events"
-	"github.com/xxnuo/supervisord/logger"
-	"github.com/xxnuo/supervisord/signals"
+	"github.com/xxnuo/supervisor-mod/config"
+	"github.com/xxnuo/supervisor-mod/events"
+	"github.com/xxnuo/supervisor-mod/logger"
+	"github.com/xxnuo/supervisor-mod/signals"
 )
 
 // State the state of process

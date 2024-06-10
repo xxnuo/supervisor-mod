@@ -1,4 +1,4 @@
-module github.com/xxnuo/supervisord/config
+module github.com/xxnuo/supervisor-mod/config
 
 go 1.16
 

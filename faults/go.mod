@@ -1,4 +1,4 @@
-module github.com/xxnuo/supervisord/faults
+module github.com/xxnuo/supervisor-mod/faults
 
 go 1.16
 

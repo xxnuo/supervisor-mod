@@ -8,8 +8,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/xxnuo/supervisord/events"
-	"github.com/xxnuo/supervisord/faults"
+	"github.com/xxnuo/supervisor-mod/events"
+	"github.com/xxnuo/supervisor-mod/faults"
 )
 
 // Logger the log interface to log program stdout/stderr logs to file

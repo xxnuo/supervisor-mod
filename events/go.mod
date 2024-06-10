@@ -1,4 +1,4 @@
-module github.com/xxnuo/supervisord/events
+module github.com/xxnuo/supervisor-mod/events
 
 go 1.16
 

@@ -1,4 +1,4 @@
-module github.com/xxnuo/supervisord
+module github.com/xxnuo/supervisor-mod
 
 go 1.17
 
@@ -13,15 +13,15 @@ require (
 	github.com/ochinchina/gorilla-xmlrpc v0.0.0-20171012055324-ecf2fe693a2c
 	github.com/prometheus/client_golang v1.12.2
 	github.com/sirupsen/logrus v1.9.0
-	github.com/xxnuo/supervisord/config v0.0.0-20220721095143-c2527852d28f
-	github.com/xxnuo/supervisord/events v0.0.0-20220721095143-c2527852d28f
-	github.com/xxnuo/supervisord/faults v0.0.0-20220721095143-c2527852d28f
-	github.com/xxnuo/supervisord/logger v0.0.0-20220721095143-c2527852d28f
-	github.com/xxnuo/supervisord/process v0.0.0-20220520055329-8fdf6b62a44f
-	github.com/xxnuo/supervisord/signals v0.0.0-20220721095143-c2527852d28f
-	github.com/xxnuo/supervisord/types v0.0.0-20220520055329-8fdf6b62a44f
-	github.com/xxnuo/supervisord/util v0.0.0-20220721095143-c2527852d28f
-	github.com/xxnuo/supervisord/xmlrpcclient v0.0.0-20220520055329-8fdf6b62a44f
+	github.com/xxnuo/supervisor-mod/config v0.0.0-20220721095143-c2527852d28f
+	github.com/xxnuo/supervisor-mod/events v0.0.0-20220721095143-c2527852d28f
+	github.com/xxnuo/supervisor-mod/faults v0.0.0-20220721095143-c2527852d28f
+	github.com/xxnuo/supervisor-mod/logger v0.0.0-20220721095143-c2527852d28f
+	github.com/xxnuo/supervisor-mod/process v0.0.0-20220520055329-8fdf6b62a44f
+	github.com/xxnuo/supervisor-mod/signals v0.0.0-20220721095143-c2527852d28f
+	github.com/xxnuo/supervisor-mod/types v0.0.0-20220520055329-8fdf6b62a44f
+	github.com/xxnuo/supervisor-mod/util v0.0.0-20220721095143-c2527852d28f
+	github.com/xxnuo/supervisor-mod/xmlrpcclient v0.0.0-20220520055329-8fdf6b62a44f
 )
 
 require (
@@ -45,13 +45,13 @@ require (
 )
 
 replace (
-	github.com/xxnuo/supervisord/config => ./config
-	github.com/xxnuo/supervisord/events => ./events
-	github.com/xxnuo/supervisord/faults => ./faults
-	github.com/xxnuo/supervisord/logger => ./logger
-	github.com/xxnuo/supervisord/process => ./process
-	github.com/xxnuo/supervisord/signals => ./signals
-	github.com/xxnuo/supervisord/types => ./types
-	github.com/xxnuo/supervisord/util => ./util
-	github.com/xxnuo/supervisord/xmlrpcclient => ./xmlrpcclient
+	github.com/xxnuo/supervisor-mod/config => ./config
+	github.com/xxnuo/supervisor-mod/events => ./events
+	github.com/xxnuo/supervisor-mod/faults => ./faults
+	github.com/xxnuo/supervisor-mod/logger => ./logger
+	github.com/xxnuo/supervisor-mod/process => ./process
+	github.com/xxnuo/supervisor-mod/signals => ./signals
+	github.com/xxnuo/supervisor-mod/types => ./types
+	github.com/xxnuo/supervisor-mod/util => ./util
+	github.com/xxnuo/supervisor-mod/xmlrpcclient => ./xmlrpcclient
 )

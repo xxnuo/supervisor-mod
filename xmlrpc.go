@@ -17,7 +17,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	log "github.com/sirupsen/logrus"
-	"github.com/xxnuo/supervisord/process"
+	"github.com/xxnuo/supervisor-mod/process"
 )
 
 // XMLRPC mange the XML RPC servers

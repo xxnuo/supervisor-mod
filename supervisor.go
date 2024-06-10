@@ -8,14 +8,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/xxnuo/supervisord/config"
-	"github.com/xxnuo/supervisord/events"
-	"github.com/xxnuo/supervisord/faults"
-	"github.com/xxnuo/supervisord/logger"
-	"github.com/xxnuo/supervisord/process"
-	"github.com/xxnuo/supervisord/signals"
-	"github.com/xxnuo/supervisord/types"
-	"github.com/xxnuo/supervisord/util"
+	"github.com/xxnuo/supervisor-mod/config"
+	"github.com/xxnuo/supervisor-mod/events"
+	"github.com/xxnuo/supervisor-mod/faults"
+	"github.com/xxnuo/supervisor-mod/logger"
+	"github.com/xxnuo/supervisor-mod/process"
+	"github.com/xxnuo/supervisor-mod/signals"
+	"github.com/xxnuo/supervisor-mod/types"
+	"github.com/xxnuo/supervisor-mod/util"
 
 	log "github.com/sirupsen/logrus"
 )

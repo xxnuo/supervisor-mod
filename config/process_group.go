@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strings"
 
-	"github.com/xxnuo/supervisord/util"
+	"github.com/xxnuo/supervisor-mod/util"
 )
 
 // ProcessGroup manage the program and its group mapping

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/xxnuo/supervisord/logger"
+	"github.com/xxnuo/supervisor-mod/logger"
 
 	"github.com/gorilla/mux"
 )

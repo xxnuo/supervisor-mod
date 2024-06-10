@@ -1,4 +1,4 @@
-module github.com/xxnuo/supervisord/signals
+module github.com/xxnuo/supervisor-mod/signals
 
 go 1.16
 
